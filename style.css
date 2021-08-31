@@ -1,7 +1,9 @@
 
-.main-canvas {
-    height: 512px;
-    width: 1024px;
+body {
+    padding: 0;
+    margin: 0;
+}
 
+.main-canvas {
     border: 3px double black;
 }
