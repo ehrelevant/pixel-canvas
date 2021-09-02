@@ -5,12 +5,16 @@
     <meta charset="UTF-8"/>
     <meta name="description" content="Pixel-art Program">
     <meta name="keywords" content="pixelart, pixel, art, canvas">
-    <meta name="author" content="Ehren Castillo/KindaExists">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <canvas id="main_canvas" class="main-canvas" width="1024" height="512"></canvas>
+    <section id="canvas_group" class="canvas-grp">
+        <canvas id="bg_canvas" class="draw-canvas" width="128" height="128"></canvas>
+        <canvas id="main_canvas" class="draw-canvas" width="128" height="128"></canvas>
+        <canvas id="fg_canvas" class="draw-canvas" width="128" height="128"></canvas>
+        <canvas id="debug_canvas" class="draw-canvas" width="128" height="128"></canvas>
+    </section>
     <script src="./app.js"></script>
 </body>
 </html>
