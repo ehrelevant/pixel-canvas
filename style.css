@@ -1,4 +1,9 @@
 
+:root {
+    --canvas-width: 512px;
+    --canvas-height: 512px;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -8,8 +13,8 @@ body {
 }
 
 .canvas-grp {
-    width: 512px;
-    height: 512px;
+    width: var(--canvas-width);
+    height: var(--canvas-height);
 
     position: absolute;
 }
@@ -26,6 +31,7 @@ body {
 
 .picker {
     position: absolute;
-    top: 40%;
-    left: 80%;
+    top: 0;
+    left: 0;
+    z-index: 500;
 }
