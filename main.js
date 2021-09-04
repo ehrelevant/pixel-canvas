@@ -73,7 +73,8 @@ cv.group.addEventListener('click', evt => {
 cv.group.addEventListener('mousemove', evt => {
     if (mouse.isHeld) {
         mouse.updatePos(evt, zoom);
-        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], zoom)
+        console.log(evt)
+        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y])
     }
 });
 
@@ -91,6 +92,10 @@ body.addEventListener('wheel', evt => {
 });
 
 
+// Stops context menu from opening when using secondary brush (will be added later)
+cv.group.addEventListener('contextmenu', (e) => ( e.preventDefault() ), false)
+
+
 // Settings Events
 const picker = document.querySelector('#picker');
 picker.addEventListener('input', evt => {
@@ -101,7 +106,7 @@ picker.addEventListener('input', evt => {
 // Canvas Controller
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
-    function drawPixel(ctx, pos) {
+    function drawPixel(ctx, pos, brushType) {
         ctx.fillStyle = pencil.primary;
         ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size)
     }
