@@ -23,3 +23,9 @@ body {
 
     image-rendering: crisp-edges;
 }
+
+.picker {
+    position: absolute;
+    top: 40%;
+    left: 80%;
+}

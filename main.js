@@ -84,6 +84,13 @@ body.addEventListener('mouseup', evt => {
 });
 
 
+// Settings Events
+const picker = document.querySelector('#picker');
+picker.addEventListener('input', evt => {
+    pencil.primary = evt.target.value;
+});
+
+
 // Canvas Controller
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
@@ -96,3 +103,10 @@ const canvasCtrl = (() => {
         drawPixel
     };
 })();
+
+
+
+// window.addEventListener('load', start, false);
+// function start() {
+//
+// }
