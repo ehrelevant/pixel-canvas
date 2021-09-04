@@ -73,7 +73,6 @@ cv.group.addEventListener('click', evt => {
 cv.group.addEventListener('mousemove', evt => {
     if (mouse.isHeld) {
         mouse.updatePos(evt, zoom);
-        console.log(evt)
         canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y])
     }
 });
