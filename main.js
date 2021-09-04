@@ -1,12 +1,18 @@
 
-let primaryColor = '#000000';
-let secondaryColor = '#FFFFFF';
-let pixelWidth = 1;
+// Misc Setup
+const body = document.body;
 let zoom = 8;
 
 
-const body = document.body;
+// Pencil Settings
+const pencil = {
+    primary: '#000000',
+    secondary: '#FFFFFF',
+    size: 1,
+};
 
+
+// Canvas Setup
 const cv = {
     bg: document.querySelector('#bg_canvas'),
     main: document.querySelector('#main_canvas'),
@@ -37,7 +43,7 @@ if (ctx.main === null) {
 }
 
 
-// Mouse Events/Functions
+// Mouse Events
 const mouse = {
     x: undefined,
     y: undefined,
@@ -54,7 +60,7 @@ const mouse = {
         this.canvas.x = (evt.clientX - canvasRect.left - zoom) / zoom;
         this.canvas.y = (evt.clientY - canvasRect.top - zoom) / zoom;
     },
-}
+};
 
 
 body.addEventListener('click', evt => {
@@ -78,12 +84,12 @@ body.addEventListener('mouseup', evt => {
 });
 
 
-// Canvas Functions
+// Canvas Controller
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
-    function drawPixel(ctx, pos, zoom) {
-        ctx.fillStyle = primaryColor;
-        ctx.fillRect(pos[0], pos[1], pixelWidth, pixelWidth)
+    function drawPixel(ctx, pos) {
+        ctx.fillStyle = pencil.primary;
+        ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size)
     }
 
     return {
