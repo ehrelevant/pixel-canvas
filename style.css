@@ -10,6 +10,56 @@ body {
 
     height: 100vh;
     width: 100vw;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1em;
+
+    overflow: hidden;
+}
+
+
+.content {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid-template-areas:
+        'uiTop uiTop uiTop'
+        'uiLeft drawArea uiRight';
+
+    grid-template-rows: 20px 1fr;
+    grid-template-columns: 15vw 70vw 15vw;
+}
+
+
+.ui {
+    height: 100vh;
+    background-color: #DDD;
+
+    z-index: 600;
+}
+
+
+.ui-t {
+    background-color: #AAA;
+    grid-area: uiTop;
+
+    height: 100%;
+    width: 100vw;
+}
+.ui-l {
+    grid-area: uiLeft;
+}
+.ui-r {
+    grid-area: uiRight;
+}
+
+
+.draw-area {
+    position: relative;
+    width: 100%;
+    grid-area: drawArea;
+    background-color: #666;
 }
 
 .canvas-grp {
@@ -29,6 +79,16 @@ body {
     image-rendering: crisp-edges;
 }
 
-.picker {
-    z-index: 500;
+.bg-cv {
+    z-index: 0;
+    background-color: #FFF;
+}
+.m-cv {
+    z-index: 100;
+}
+.fg-cv {
+    z-index: 200;
+}
+.db-cv {
+    z-index: 300;
 }
