@@ -59,7 +59,11 @@ const mouse = {
         y: undefined,
     },
 
-    isHeld: false,
+    btnHeld: {
+        left: false,
+        middle: false,
+        right: false,
+    },
 
     updatePos(evt, zoom) {
         this.x = evt.pageX;
@@ -76,18 +80,29 @@ cv.group.addEventListener('click', evt => {
 });
 
 cv.group.addEventListener('mousemove', evt => {
-    if (mouse.isHeld) {
-        mouse.updatePos(evt, zoom);
-        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y])
+    mouse.updatePos(evt, zoom);
+
+    if (mouse.btnHeld.left) {
+        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], 0);
+    } else if (mouse.btnHeld.right) {
+        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], 1);
     }
 });
 
 body.addEventListener('mousedown', evt => {
-    mouse.isHeld = true;
+    if (evt.button === 0) {
+        mouse.btnHeld.left = true;
+    } else if (evt.button === 2) {
+        mouse.btnHeld.right = true;
+    }
 });
 
 body.addEventListener('mouseup', evt => {
-    mouse.isHeld = false;
+    if (evt.button === 0) {
+        mouse.btnHeld.left = false;
+    } else if (evt.button === 2) {
+        mouse.btnHeld.right = false;
+    }
 });
 
 body.addEventListener('wheel', evt => {
@@ -115,8 +130,9 @@ secondaryPicker.addEventListener('input', evt => {
 // Canvas Controller
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
-    function drawPixel(ctx, pos, brushType) {
-        ctx.fillStyle = pencil.primary;
+    function drawPixel(ctx, pos, colorType) {
+        console.log(pencil)
+        ctx.fillStyle = (colorType === 1) ? pencil.secondary : pencil.primary;
         ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size)
     }
 
