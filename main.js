@@ -1,9 +1,7 @@
 
 // Misc Setup
 const body = document.body;
-const maxZoom = 32;
-const minZoom = 2;
-let zoom = 8;
+const drawArea = document.querySelector('#draw_area');
 
 
 // Pencil Settings
@@ -75,12 +73,12 @@ const mouse = {
 
 
 cv.group.addEventListener('click', evt => {
-    mouse.updatePos(evt, zoom);
-    canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], zoom)
+    mouse.updatePos(evt, cv.info.zoom);
+    canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], cv.info.zoom)
 });
 
 cv.group.addEventListener('mousemove', evt => {
-    mouse.updatePos(evt, zoom);
+    mouse.updatePos(evt, cv.info.zoom);
 
     if (mouse.btnHeld.left) {
         canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], 0);
@@ -105,7 +103,7 @@ body.addEventListener('mouseup', evt => {
     }
 });
 
-body.addEventListener('wheel', evt => {
+drawArea.addEventListener('wheel', evt => {
     const direction = (evt.wheelDelta > 0) ? 1 : -1;
     canvasCtrl.changeZoom(cv, direction, [cv.main.width, cv.main.height]);
 });
@@ -135,19 +133,19 @@ const canvasCtrl = (() => {
         ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size);
     }
 
-    function changeZoom(canvases, direction, baseSize) {
-        if ((zoom < maxZoom && direction > 0) || (zoom > minZoom && direction < 0)) {
+    function changeZoom(cvs, direction, baseSize) {
+        if ((cvs.info.zoom < cvs.info.maxZoom && direction > 0) || (cvs.info.zoom > cvs.info.minZoom && direction < 0)) {
             if (direction > 0) {
-                zoom *= 2;
+                cvs.info.zoom *= 2;
             } else {
-                zoom /= 2;
+                cvs.info.zoom /= 2;
             }
-            const newWidth = baseSize[0] * zoom;
-            const newHeight = baseSize[1] * zoom;
+            const newWidth = baseSize[0] * cvs.info.zoom;
+            const newHeight = baseSize[1] * cvs.info.zoom;
             document.documentElement.style.setProperty('--canvas-width', `${newWidth}px`);
             document.documentElement.style.setProperty('--canvas-height', `${newHeight}px`);
 
-            canvases.generateNewRect();
+            cvs.generateNewRect();
         }
     }
 
