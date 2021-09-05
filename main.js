@@ -131,9 +131,8 @@ secondaryPicker.addEventListener('input', evt => {
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
     function drawPixel(ctx, pos, colorType) {
-        console.log(pencil)
         ctx.fillStyle = (colorType === 1) ? pencil.secondary : pencil.primary;
-        ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size)
+        ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size);
     }
 
     function changeZoom(canvases, direction, baseSize) {

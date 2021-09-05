@@ -9,23 +9,25 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <section id="ui_left" class="ui ui-l">
-        <input id="primary" class="picker" type="color" value="#000000">
-        <input id="secondary" class="picker" type="color" value="#FFFFFF">
-    </section>
+    <div id="content_container" class="content">
+        <section id="ui_left" class="ui ui-l">
+            <input id="primary" class="picker" type="color" value="#000000">
+            <input id="secondary" class="picker" type="color" value="#FFFFFF">
+        </section>
 
-    <section id="draw_area" class="draw-area">
-        <div id="canvas_group" class="canvas-grp">
-            <canvas id="bg_canvas" class="draw-canvas" width="64" height="64"></canvas>
-            <canvas id="main_canvas" class="draw-canvas" width="64" height="64"></canvas>
-            <canvas id="fg_canvas" class="draw-canvas" width="64" height="64"></canvas>
-            <canvas id="debug_canvas" class="draw-canvas" width="64" height="64"></canvas>
-        </div>
-    </section>
+        <section id="draw_area" class="draw-area">
+            <div id="canvas_group" class="canvas-grp">
+                <canvas id="bg_canvas" class="draw-canvas" width="64" height="64"></canvas>
+                <canvas id="main_canvas" class="draw-canvas" width="64" height="64"></canvas>
+                <canvas id="fg_canvas" class="draw-canvas" width="64" height="64"></canvas>
+                <canvas id="debug_canvas" class="draw-canvas" width="64" height="64"></canvas>
+            </div>
+        </section>
 
-    <section id="ui_right" class="ui ui-r">
+        <section id="ui_right" class="ui ui-r">
 
-    </section>
+        </section>
+    </div>
 
     <script src="./main.js"></script>
 </body>
