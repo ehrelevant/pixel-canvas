@@ -1,6 +1,8 @@
 
 // Misc Setup
 const body = document.body;
+const maxZoom = 32;
+const minZoom = 2;
 let zoom = 8;
 
 
@@ -20,9 +22,19 @@ const cv = {
     main: document.querySelector('#main_canvas'),
     fg: document.querySelector('#fg_canvas'),
     debug: document.querySelector('#debug_canvas'),
-};
 
-let canvasRect = cv.main.getBoundingClientRect();
+    info: {
+        zoom: 8,
+        maxZoom: 32,
+        minZoom: 4,
+
+        rect: undefined,
+    },
+
+    generateNewRect() {
+        this.info.rect = cv.main.getBoundingClientRect();
+    },
+};
 
 
 const ctx = {
@@ -36,13 +48,6 @@ const ctx = {
         this.debug.imageSmoothingEnabled = false;
     }
 };
-
-ctx.disableAllSmoothing();
-
-
-if (ctx.main === null) {
-    alert("Unable to initialize Canvas. Your browser or machine may not support it.");
-}
 
 
 // Mouse Events
@@ -59,8 +64,8 @@ const mouse = {
     updatePos(evt, zoom) {
         this.x = evt.pageX;
         this.y = evt.pageY;
-        this.canvas.x = (evt.pageX - canvasRect.left - zoom) / zoom;
-        this.canvas.y = (evt.pageY - canvasRect.top - zoom) / zoom;
+        this.canvas.x = (evt.pageX - cv.info.rect.left - (zoom / 2) - 1) / zoom;
+        this.canvas.y = (evt.pageY - cv.info.rect.top - (zoom / 2) - 1) / zoom;
     },
 };
 
@@ -87,7 +92,7 @@ body.addEventListener('mouseup', evt => {
 
 body.addEventListener('wheel', evt => {
     const direction = (evt.wheelDelta > 0) ? 1 : -1;
-    canvasCtrl.changeZoom(cv.main, direction, [cv.main.width, cv.main.height]);
+    canvasCtrl.changeZoom(cv, direction, [cv.main.width, cv.main.height]);
 });
 
 
@@ -110,8 +115,8 @@ const canvasCtrl = (() => {
         ctx.fillRect(pos[0], pos[1], pencil.size, pencil.size)
     }
 
-    function changeZoom(mainCanvas, direction, baseSize) {
-        if ((zoom < 16 && direction > 0) || (zoom > 1 && direction < 0)) {
+    function changeZoom(canvases, direction, baseSize) {
+        if ((zoom < maxZoom && direction > 0) || (zoom > minZoom && direction < 0)) {
             if (direction > 0) {
                 zoom *= 2;
             } else {
@@ -122,7 +127,7 @@ const canvasCtrl = (() => {
             document.documentElement.style.setProperty('--canvas-width', `${newWidth}px`);
             document.documentElement.style.setProperty('--canvas-height', `${newHeight}px`);
 
-            canvasRect = mainCanvas.getBoundingClientRect();
+            canvases.generateNewRect();
         }
     }
 
@@ -133,7 +138,13 @@ const canvasCtrl = (() => {
 
 
 
-// window.addEventListener('load', start, false);
-// function start() {
-//
-// }
+window.addEventListener('load', setup, false);
+
+function setup() {
+    cv.generateNewRect();
+    ctx.disableAllSmoothing();
+
+    if (ctx.main === null) {
+        alert("Unable to initialize Canvas. Your browser or machine may not support it.");
+    }
+}
