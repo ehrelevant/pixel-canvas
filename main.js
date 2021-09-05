@@ -101,9 +101,14 @@ cv.group.addEventListener('contextmenu', (e) => ( e.preventDefault() ), false)
 
 
 // Settings Events
-const picker = document.querySelector('#picker');
-picker.addEventListener('input', evt => {
+const primaryPicker = document.querySelector('#primary');
+primaryPicker.addEventListener('input', evt => {
     pencil.primary = evt.target.value;
+});
+
+const secondaryPicker = document.querySelector('#secondary')
+secondaryPicker.addEventListener('input', evt => {
+    pencil.secondary = evt.target.value;
 });
 
 
