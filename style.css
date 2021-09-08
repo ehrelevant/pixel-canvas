@@ -67,6 +67,8 @@ body {
     height: var(--canvas-height);
 
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .draw-canvas {
