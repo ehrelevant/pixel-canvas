@@ -71,10 +71,9 @@ body {
     height: var(--canvas-height);
 
     position: absolute;
-    left: 100%;
-    top: 100%;
-    right: 100%;
-    bottom: 100%;
+
+    top: calc(50% - var(--canvas-height)/2);
+    left: calc(50% - var(--canvas-width)/2);
 }
 
 .draw-canvas {
