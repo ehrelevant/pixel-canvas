@@ -62,13 +62,19 @@ body {
     background-color: #666;
 }
 
+.panning {
+    cursor: move;
+}
+
 .canvas-grp {
     width: var(--canvas-width);
     height: var(--canvas-height);
 
     position: absolute;
-    top: 0;
-    left: 0;
+    left: 100%;
+    top: 100%;
+    right: 100%;
+    bottom: 100%;
 }
 
 .draw-canvas {

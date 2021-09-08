@@ -110,7 +110,9 @@ body.addEventListener('mousedown', evt => {
     } else if (evt.button === 2) {
         mouse.btnHeld.right = true;
     } else if (evt.button === 1) {
-        mouse.savePanOffset(cv.info.rect)
+        mouse.savePanOffset(cv.info.rect);
+        cv.container.area.classList.add('panning');
+
         mouse.btnHeld.middle = true;
     }
 });
@@ -123,15 +125,23 @@ body.addEventListener('mouseup', evt => {
     } else if (evt.button === 1) {
         mouse.savedOffset.x = undefined;
         mouse.savedOffset.y = undefined;
+        cv.container.area.classList.remove('panning');
 
         mouse.btnHeld.middle = false;
     }
 });
 
 body.addEventListener('mouseleave', evt => {
+    if (mouse.btnHeld.left) {
+        mouse.btnHeld.left = false;
+    }
+    if (mouse.btnHeld.right) {
+        mouse.btnHeld.right = false;
+    }
     if (mouse.btnHeld.middle) {
         mouse.savedOffset.x = undefined;
         mouse.savedOffset.y = undefined;
+        cv.container.area.classList.remove('panning');
 
         mouse.btnHeld.middle = false;
     }
