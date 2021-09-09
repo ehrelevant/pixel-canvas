@@ -86,7 +86,7 @@ const mouse = {
 
 
 cv.group.addEventListener('click', evt => {
-    if (mouse.btnHeld.left || mouse.btnHeld.right) {
+    if (evt.button === 0 || evt.button === 2) {
         mouse.updatePos(evt, cv.info.zoom);
         canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], cv.info.zoom);
     }
