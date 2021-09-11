@@ -2,12 +2,16 @@
 // Misc Setup
 const body = document.body;
 
-// Pencil Settings
+// Tool Settings
 const pencil = {
     primary: '#000000',
     secondary: '#FFFFFF',
     size: 1,
 };
+
+const eraser = {
+    size: 1,
+}
 
 
 // Canvas Setup
