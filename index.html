@@ -16,17 +16,21 @@
         </section>
 
         <section id="ui_left" class="ui ui-l">
-            <label for="primary">Color 1:</label>
-            <input id="primary" class="picker" name="primary" type="color" value="#000000">
-            <br>
-            <label for="secondary">Color 2:</label>
-            <input id="secondary" class="picker" name="secondary" type="color" value="#FFFFFF">
+            <div id="pickers">
+                <label for="primary">Color 1:</label>
+                <input id="primary" class="picker" name="primary" type="color" value="#000000">
+                <br>
+                <label for="secondary">Color 2:</label>
+                <input id="secondary" class="picker" name="secondary" type="color" value="#FFFFFF">
+            </div>
         </section>
 
         <section id="draw_area" class="draw-area">
             <div id="canvas_group" class="canvas-grp">
                 <canvas id="bg_canvas" class="draw-canvas bg-cv" width="64" height="64"></canvas>
-                <canvas id="main_canvas" class="draw-canvas m-cv" width="64" height="64"></canvas>
+                <div id="main_canvas">
+                    <canvas class="draw-canvas m-cv" style="z-index:100" data-layer="0" width="64" height="64"></canvas>
+                </div>
                 <canvas id="fg_canvas" class="draw-canvas fg-cv" width="64" height="64"></canvas>
                 <canvas id="debug_canvas" class="draw-canvas db-cv" width="64" height="64"></canvas>
             </div>
@@ -37,6 +41,7 @@
                 <button>Pencil</button>
                 <button>Eraser</button>
             </div>
+            <div id="layers"></div>
         </section>
     </div>
 

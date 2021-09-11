@@ -15,7 +15,9 @@ const cv = {
     group: document.querySelector('#canvas_group'),
 
     bg: document.querySelector('#bg_canvas'),
-    main: document.querySelector('#main_canvas'),
+    main: [
+        document.querySelector('#main_canvas').querySelector('[data-layer="0"]'),
+    ],
     fg: document.querySelector('#fg_canvas'),
     debug: document.querySelector('#debug_canvas'),
 
@@ -23,6 +25,8 @@ const cv = {
         zoom: 8,
         maxZoom: 32,
         minZoom: 4,
+
+        layer: 0,
 
         rect: undefined,
     },
@@ -42,12 +46,14 @@ const cv = {
 
 const ctx = {
     bg: cv.bg.getContext("2d"),
-    main: cv.main.getContext("2d"),
+    main: [
+        cv.main[0].getContext("2d"),
+    ],
     fg: cv.fg.getContext("2d"),
     debug: cv.debug.getContext("2d"),
 
-    disableAllSmoothing() {
-        this.main.imageSmoothingEnabled = false;
+    disableInitialSmoothing() {
+        this.main[0].imageSmoothingEnabled = false;
         this.debug.imageSmoothingEnabled = false;
     }
 };
@@ -88,7 +94,7 @@ const mouse = {
 cv.group.addEventListener('click', evt => {
     if (evt.button === 0 || evt.button === 2) {
         mouse.updatePos(evt, cv.info.zoom);
-        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], cv.info.zoom);
+        canvasCtrl.drawPixel(ctx.main[cv.info.layer], [mouse.canvas.x, mouse.canvas.y], cv.info.zoom);
     }
 });
 
@@ -96,9 +102,9 @@ body.addEventListener('mousemove', evt => {
     mouse.updatePos(evt, cv.info.zoom);
 
     if (mouse.btnHeld.left) {
-        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], 0);
+        canvasCtrl.drawPixel(ctx.main[cv.info.layer], [mouse.canvas.x, mouse.canvas.y], 0);
     } else if (mouse.btnHeld.right) {
-        canvasCtrl.drawPixel(ctx.main, [mouse.canvas.x, mouse.canvas.y], 1);
+        canvasCtrl.drawPixel(ctx.main[cv.info.layer], [mouse.canvas.x, mouse.canvas.y], 1);
     } else if (mouse.btnHeld.middle) {
         canvasCtrl.panCanvas(cv, mouse, mouse.savedOffset)
     }
@@ -149,7 +155,7 @@ body.addEventListener('mouseleave', evt => {
 
 cv.container.area.addEventListener('wheel', evt => {
     const direction = (evt.wheelDelta > 0) ? 1 : -1;
-    canvasCtrl.changeZoom(cv, direction, [cv.main.width, cv.main.height]);
+    canvasCtrl.changeZoom(cv, direction, [cv.main[0].width, cv.main[0].height]);
 });
 
 
@@ -214,9 +220,9 @@ window.addEventListener('load', setup, false);
 function setup() {
     cv.generateNewRect();
 
-    ctx.disableAllSmoothing();
+    ctx.disableInitialSmoothing();
 
-    if (ctx.main === null) {
+    if (ctx.main[0] === null) {
         alert("Unable to initialize Canvas. Your browser or machine may not support it.");
     }
 }
