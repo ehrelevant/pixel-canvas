@@ -8,6 +8,8 @@
     <meta name="keywords" content="pixelart, pixel, art, canvas">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+
+    <script defer src="./main.js"></script>
 </head>
 <body>
     <div id="content_container" class="content">
@@ -41,10 +43,11 @@
                 <button>Pencil</button>
                 <button>Eraser</button>
             </div>
-            <div id="layers"></div>
+            <div id="layers" class="layers-panel">
+                <button id="new_layer_button" class="new-layer">+</button>
+                <input id="change_layer" class="change-layer" name="current-layer" type="number" value="0">
+            </div>
         </section>
     </div>
-
-    <script src="./main.js"></script>
 </body>
 </html>

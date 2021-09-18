@@ -19,6 +19,7 @@ const cv = {
     group: document.querySelector('#canvas_group'),
 
     bg: document.querySelector('#bg_canvas'),
+    mainContainer: document.querySelector('#main_canvas'),
     main: [
         document.querySelector('#main_canvas').querySelector('[data-layer="0"]'),
     ],
@@ -179,6 +180,10 @@ secondaryPicker.addEventListener('input', evt => {
 });
 
 
+const addLayerBtn = document.querySelector('#new_layer_button');
+addLayerBtn.addEventListener('click', () => (canvasCtrl.newLayer(cv, ctx)));
+
+
 // Canvas Controller
 const canvasCtrl = (() => {
     // Review (floored) "Bresenham Line algorithm" to avoid point skipping
@@ -212,8 +217,29 @@ const canvasCtrl = (() => {
         cvs.generateNewRect();
     }
 
+    function newLayer(cvs, ctxs) {
+        const layer = _buildLayer();
+        cvs.mainContainer.appendChild(layer);
+        cvs.main.push(layer);
+        const newCtx = layer.getContext('2d');
+        newCtx.imageSmoothingEnabled = false;
+        ctxs.main.push(newCtx);
+    }
+
+    function _buildLayer(){
+        const newCanvas = document.createElement('canvas');
+        newCanvas.classList.add('draw-canvas', 'm-cv');
+        // Temporary Values (for testing purposes)
+        newCanvas.style.zIndex = 101;
+        newCanvas.width = 64;
+        newCanvas.height = 64;
+        console.log(newCanvas.width);
+
+        return newCanvas;
+    }
+
     return {
-        drawPixel, changeZoom, panCanvas
+        drawPixel, changeZoom, panCanvas, newLayer
     };
 })();
 
