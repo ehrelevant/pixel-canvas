@@ -83,7 +83,7 @@ body {
     position: absolute;
     border: 1px solid black;
 
-    image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 .bg-cv {
